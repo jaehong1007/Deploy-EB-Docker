@@ -20,7 +20,10 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 # Config Paths
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 CONFIG_SECRET_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
-config_secret = json.loads(open(CONFIG_SECRET_COMMON_FILE).read())
+CONFIG_SECRET_DEV_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_dev.json')
+CONFIG_SECRET_DEPLOY_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_deploy.json')
+
+config_secret_common = json.loads(open(CONFIG_SECRET_COMMON_FILE).read())
 
 # Static Paths
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
@@ -105,7 +108,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-SECRET_KEY = config_secret['django']['secret_key']
+SECRET_KEY = config_secret_common['django']['secret_key']
 DEBUG = True
 
 
