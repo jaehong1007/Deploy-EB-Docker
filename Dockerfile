@@ -1,4 +1,4 @@
-FROM        base
+FROM        yabi1007/base
 MAINTAINER  jaehong1007@gmail.com
 
 ENV         LANG C.UTF-8
