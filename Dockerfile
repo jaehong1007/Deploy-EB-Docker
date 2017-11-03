@@ -1,14 +1,8 @@
-# Dockerfile.local 기반
-# 설정 모듈은 config.settings.dev사용
-# uWSGI로 전달할 WSGI 모듈은 wsgi.dev사용
-
-# docker build 를 이용해 'eb-dev'이미지를 생성 후 실행
-# RDS, S3 관련하여 보안그룹 설정이 필요할 경우 AWS콘솔에서 실행
-
 FROM        yabi1007/base
 MAINTAINER  jaehong1007@gmail.com
 
 ENV         LANG C.UTF-8
+ENV         DJANGO_SETTINGS_MODULE config.settings.dev
 
 # 파일 복사 및 requirements 설치
 COPY        . /srv/app
@@ -38,6 +32,7 @@ RUN         /root/.pyenv/versions/app/bin/python manage.py migrate --noinput
 # supervisor
 RUN         cp /srv/app/.config/dev/supervisor/* \
                 /etc/supervisor/conf.d
+
 CMD         supervisord -n
 
 EXPOSE      80
