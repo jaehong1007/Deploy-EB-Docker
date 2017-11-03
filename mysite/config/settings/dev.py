@@ -1,6 +1,8 @@
+from pprint import pprint
+
 from .base import *
 
-config_secret = json.loads(open(CONFIG_SECRET_DEV_FILE.read()))
+config_secret = json.loads(open(CONFIG_SECRET_DEV_FILE).read())
 
 # AWS
 AWS_ACCESS_KEY_ID = config_secret_common['aws']['access_key_id']
@@ -19,3 +21,6 @@ STATICFILES_STORAGE = 'config.storages.StaticStorage'
 
 # Databases
 DATABASES = config_secret['django']['databases']
+
+
+pprint(DATABASES)
