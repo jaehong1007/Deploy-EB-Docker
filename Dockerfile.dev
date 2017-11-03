@@ -1,3 +1,10 @@
+# Dockerfile.local 기반
+# 설정 모듈은 config.settings.dev사용
+# uWSGI로 전달할 WSGI 모듈은 wsgi.dev사용
+
+# docker build 를 이용해 'eb-dev'이미지를 생성 후 실행
+# RDS, S3 관련하여 보안그룹 설정이 필요할 경우 AWS콘솔에서 실행
+
 FROM        yabi1007/base
 MAINTAINER  jaehong1007@gmail.com
 
@@ -12,9 +19,9 @@ WORKDIR     /srv/app
 RUN         pyenv local app
 
 # Nginx
-RUN         cp /srv/app/.config/nginx/nginx.conf \
+RUN         cp /srv/app/.config/dev/nginx/nginx.conf \
                 /etc/nginx/nginx.conf
-RUN         cp /srv/app/.config/nginx/app.conf \
+RUN         cp /srv/app/.config/dev/nginx/app.conf \
                 /etc/nginx/sites-available/
 RUN         rm -rf /etc/nginx/sites-enabled/*
 RUN         ln -sf /etc/nginx/sites-available/app.conf \
@@ -29,7 +36,7 @@ RUN         /root/.pyenv/versions/app/bin/python manage.py collectstatic --noinp
 RUN         /root/.pyenv/versions/app/bin/python manage.py migrate --noinput
 
 # supervisor
-RUN         cp /srv/app/.config/supervisor/* \
+RUN         cp /srv/app/.config/dev/supervisor/* \
                 /etc/supervisor/conf.d
 CMD         supervisord -n
 

@@ -226,7 +226,7 @@ venv.bak/
 
 .static_root/
 
-.config_secret/
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
